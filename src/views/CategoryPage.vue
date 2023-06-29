@@ -69,10 +69,10 @@ export default {
     go() {
       let url = "/categories";
       if (this.page > 0) {
-        url = "categories?page=" + this.page;
+        url = "/categories?page=" + this.page;
       }
       axios
-        .get(`${process.env.VUE_APP_BACKEND_URL}`+ url)
+        .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1`+ url)
         .then((response) => {
           let response_data = response.data;
           let categories = response_data.data;

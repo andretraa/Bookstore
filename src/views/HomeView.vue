@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container grid-list-md>
-        <v-subheader>
+        <v-subheader class="text-h6">
           Random Category
           <v-spacer></v-spacer>
 
@@ -43,26 +43,87 @@
     </v-container>
 
     <v-container grid-list-md>
-      <v-subheader>Top Books
+      <v-subheader class="text-h6">Top Books
         <v-spacer></v-spacer>
         <router-link to="/books">See All</router-link>
       </v-subheader>
       <v-layout row wrap>
-        <v-flex xs6 v-for="(book, index) in books" :key="index">
-          <v-card :to="'/book/'+book.slug">
+        <v-flex xs12 md4 xl4 v-for="book in books" :key="book.id">
+          <v-card
+            :loading="loading"
+            class="mx-auto my-4"
+            max-width="374"
+            :to="'/book/' + book.slug"
+          >
+            <template v-slot:loader="{ isActive }">
+              <v-progress-linear
+                :active="isActive"
+                color="deep-purple"
+                height="4"
+                indeterminate
+              ></v-progress-linear>
+            </template>
+
             <v-img
-            :src="getImage('/books/'+book.cover)"
-            height="250px"
-            >
-              <v-container fill-height fluid pa-2>
-                <v-layout fill-height>
-                  <v-flex xs12 align-end flexbox>
-                    <span class="title white--text text-block" v-text="book.title"></span>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-img>
+              cover
+              :src="getImage('/books/' + book.cover)" height="250px"
+            ></v-img>
+
+            <v-card-item>
+              <v-card-title>{{ book.title }}</v-card-title>
+
+              <v-card-subtitle>
+                <span class="me-1">Author - {{ book.author }}</span>
+
+                <v-icon
+                  color="error"
+                  icon="mdi-fire-circle"
+                  size="small"
+                ></v-icon>
+              </v-card-subtitle>
+            </v-card-item>
+
+            <v-card-text>
+              <v-row
+                align="center"
+                class="mx-0"
+              >
+              <div class="text-grey">
+                Berat ({{book.weight}} kg)
+              </div>
+            </v-row>
+            <v-row
+                align="center"
+                class="mx-0"
+              >
+              <div class="text-grey">
+                Stock ({{book.stock}})
+              </div>
+            </v-row>
+            <v-row
+                align="center"
+                class="mx-0"
+              >
+              <div class="text-grey">
+                Publisher - {{ book.publisher }}
+              </div>
+            </v-row>
+
+
+            </v-card-text>
+
+            <v-divider class="mx-4 "></v-divider>
+
+            <v-card-title>Price : Rp {{ book.price }}</v-card-title>
+
             <v-card-actions>
+              <v-btn
+                color="deep-purple-lighten-2 ms-2 mb-2"
+                variant="text"
+                @click="reserve"
+              >
+                Add To Cart
+              </v-btn>
               <v-spacer></v-spacer>
               <v-btn icon>
                 <v-icon>favorite</v-icon>
@@ -102,7 +163,7 @@
     created(){
       let count = 4
       axios
-      .get(`${process.env.VUE_APP_BACKEND_URL}/categories/random/`+ count)
+      .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/categories/random/`+ count)
       .then((response) => {
         let categories = response.data.data
         this.categories = categories;
@@ -114,8 +175,9 @@
       })
 
       count = 8
+      console.log(process.env.VUE_APP_BACKEND_URL, 'data')
       axios
-      .get(`${process.env.VUE_APP_BACKEND_URL}/books/top/`+ count)
+      .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/books/top/`+ count)
       .then((response) => {
         let books = response.data.data
         this.books = books
