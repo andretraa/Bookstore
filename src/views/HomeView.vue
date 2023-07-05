@@ -163,7 +163,7 @@
     created(){
       let count = 4
       axios
-      .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/categories/random/`+ count)
+      .get(`${process.env.VUE_APP_BACKEND_URL}/categories/random/`+ count)
       .then((response) => {
         let categories = response.data.data
         this.categories = categories;
@@ -177,7 +177,7 @@
       count = 8
       console.log(process.env.VUE_APP_BACKEND_URL, 'data')
       axios
-      .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/books/top/`+ count)
+      .get(`${process.env.VUE_APP_BACKEND_URL}/books/top/`+ count)
       .then((response) => {
         let books = response.data.data
         this.books = books
