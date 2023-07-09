@@ -12,19 +12,10 @@
         <!-- sperator supaya header bagian kanan posisinya rata kanan -->
         <v-spacer></v-spacer>
 
-        <!-- header bagian kanan -->
-        <!-- <v-btn icon>
-            <v-badge left overlay color="orange">
-                <template v-slot:badge>
-                    <span>1</span>
-                </template>
-                <v-btn icon>
-                    <v-icon>mdi-cart</v-icon>
-                </v-btn>
-            </v-badge>
-        </v-btn> -->
-        <v-btn class="text-none" icon stacked>
-            <v-badge content="2" color="error" left>
+        <v-btn icon >
+            <v-badge left overlap="" color="error">
+                <span slot="badge" v-if="countCart > 0">{{ countCart }}</span>
+                <span slot="badge" v-else>0</span>
                 <v-icon>mdi-cart</v-icon>
             </v-badge>
         </v-btn>
@@ -45,16 +36,19 @@
         name: 'c-header',
         methods: {
             ...mapActions({
-                setSideBar : 'setSideBar',
+                setSideBar: 'setSideBar',
             }),
         },
         computed: {
             ...mapGetters({
-                sideBar : 'sideBar',
+                sideBar: 'sideBar',
+                countCart: 'cart/count'
+                
             }),
             isHome () {
                 return (this.$route.path==='/')
             },
         },
+        
     }
 </script>

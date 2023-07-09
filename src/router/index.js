@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
+import CategoryList from "../views/CategoryList.vue";
 
 Vue.use(VueRouter)
 
@@ -19,12 +20,22 @@ const routes = [
   {
     path: '/categories',
     name: 'categories',
-    component: () => import('../views/CategoryPage.vue')
+    component: CategoryList
+  },
+  {
+    path: '/category/:slug',
+    name: 'category',
+    component: () => import('../views/BookCategory.vue')
   },
   {
     path: '/books',
     name: 'books',
     component: () => import('../views/BookList.vue')
+  },
+  {
+    path: '/book/:slug',
+    name: 'book',
+    component: () => import('../views/BookDetail.vue')
   },
 
 ]
