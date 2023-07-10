@@ -12,43 +12,49 @@
         <!-- sperator supaya header bagian kanan posisinya rata kanan -->
         <v-spacer></v-spacer>
 
-        <v-btn icon >
-            <v-badge left overlap="" color="error">
-                <span slot="badge" v-if="countCart > 0">{{ countCart }}</span>
-                <span slot="badge" v-else>0</span>
-                <v-icon>mdi-cart</v-icon>
+        <!-- header bagian kanan -->
+        <v-btn icon>
+            <v-badge left overlap color="red">
+                <span slot="badge" v-if="countCart > 0"> {{ countCart }} </span>
+                <span slot="badge" v-else> 0 </span>
+                <v-icon>shopping_cart</v-icon>
             </v-badge>
         </v-btn>
 
+
         <!-- colom pencarian di bawah header -->
-        <v-text-field v-if="isHome" hide-details append-icon="mdi-microphone" label="Search" prepend-inner-icon="mdi-magnify" solo-inverted>
+        <v-text-field v-if="isHome" @click="search()" slot="extension" hide-details append-icon="mdi-microphone" text label="Search" prepend-inner-icon="search" solo-inverted>
         </v-text-field>
 
     </v-app-bar>
-        
 </template>
 
 <script>
 
     import { mapGetters, mapActions } from "vuex";
-    
+
     export default {
         name: 'c-header',
         methods: {
-            ...mapActions({
-                setSideBar: 'setSideBar',
-            }),
-        },
+          ...mapActions({
+            setSideBar: 'setSideBar',
+            setStatusDialog: 'dialog/setStatus',
+            setComponent : 'dialog/setComponent',
+        }),
+          search(){
+            this.setStatusDialog(true)
+             this.setComponent('search')
+            this.setSideBar(false)
+      }
+    },
         computed: {
             ...mapGetters({
-                sideBar: 'sideBar',
-                countCart: 'cart/count'
-                
+                sideBar : 'sideBar',
+                countCart : 'cart/count'
             }),
             isHome () {
                 return (this.$route.path==='/')
             },
         },
-        
     }
 </script>

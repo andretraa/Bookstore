@@ -5,14 +5,19 @@
     <!-- sidebar -->
     <c-side-bar />
     <c-alert />
-    <v-dialog
-      v-model="dialog"
-      scrollable fullscreen 
-      hide-overlay
-      transition="dialog-transition"
-    >
-      <search-view/>
-    </v-dialog>
+    <!-- <v-dialog v-model="dialog" fullscreen hideoverlay transition="dialogbottom-transition">
+      <searchPage />
+    </v-dialog> -->
+
+    <keep-alive>
+      <v-dialog
+        v-model="dialog"
+        fullscreen hide-overlay
+        transition="dialogbottom-transition"
+      >
+        <component :is="currentComponent"></component>
+      </v-dialog>
+    </keep-alive>
 
     <v-main>
       <router-view/>
@@ -28,21 +33,42 @@ import CHeader from '@/components/CHeader.vue'
 import CSideBar from '@/components/CSideBar.vue'
 import CFooter from '@/components/CFooter.vue'
 import CAlert from '@/components/CAlert.vue'
-import Search from '@/views/SearchView.vue'
+import SearchPage from '@/views/SearchPage.vue'
+import login from '@/views/LoginPage.vue'
+import register from '@/views/RegisterPage.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     CHeader,
-    CSideBar,
     CFooter,
+    CSideBar,
     CAlert,
-    Search,
+    SearchPage,
+    login,
+    register,
   },
-  data: () => ({
-    //
-  }),
-};
+  methods:{
+    ...mapActions({
+      setStatusDialog : 'dialog/setStatus',
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      statusDialog : 'dialog/status',
+      currentComponent: 'dialog/component'
+    }),
+    dialog: {
+      get (){
+        return this.statusDialog
+      },
+      set (value){
+        this.setStatusDialog(value)
+      }
+    },
+  },
+}
 </script>
 
 <style type="text/css">
