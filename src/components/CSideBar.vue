@@ -110,7 +110,7 @@ export default {
         },
       }
       axios
-        .post(`${process.env.VUE_APP_BACKEND_URL}/logout`, config)
+        .post(`${process.env.VUE_APP_BACKEND_URL}/logout`,{}, config)
         .then(() => {
           this.setAuth({})
           this.setAlert({

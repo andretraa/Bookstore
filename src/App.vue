@@ -5,9 +5,6 @@
     <!-- sidebar -->
     <c-side-bar />
     <c-alert />
-    <!-- <v-dialog v-model="dialog" fullscreen hideoverlay transition="dialogbottom-transition">
-      <searchPage />
-    </v-dialog> -->
 
     <keep-alive>
       <v-dialog
@@ -34,6 +31,8 @@ import CSideBar from '@/components/CSideBar.vue'
 import CFooter from '@/components/CFooter.vue'
 import CAlert from '@/components/CAlert.vue'
 import SearchPage from '@/views/SearchPage.vue'
+import Checkout from '@/views/CheckoutPage.vue'
+import Cart from '@/views/CartPage.vue'
 import login from '@/views/LoginPage.vue'
 import register from '@/views/RegisterPage.vue'
 import { mapActions, mapGetters } from 'vuex'
@@ -46,6 +45,8 @@ export default {
     CSideBar,
     CAlert,
     SearchPage,
+    Cart,
+    Checkout,
     login,
     register,
   },

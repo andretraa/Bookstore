@@ -167,7 +167,6 @@
       .then((response) => {
         let categories = response.data.data
         this.categories = categories;
-        console.log(this.categories);
       })
       .catch((error) => {
         let response = error.response
@@ -175,13 +174,11 @@
       })
 
       count = 8
-      console.log(process.env.VUE_APP_BACKEND_URL, 'data')
       axios
       .get(`${process.env.VUE_APP_BACKEND_URL}/books/top/`+ count)
       .then((response) => {
         let books = response.data.data
         this.books = books
-        console.log(this.books)
       })
       .catch((error) => {
         let response = error.response

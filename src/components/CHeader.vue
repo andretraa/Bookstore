@@ -13,7 +13,7 @@
         <v-spacer></v-spacer>
 
         <!-- header bagian kanan -->
-        <v-btn icon>
+        <v-btn icon @click="cart()">
             <v-badge left overlap color="red">
                 <span slot="badge" v-if="countCart > 0"> {{ countCart }} </span>
                 <span slot="badge" v-else> 0 </span>
@@ -41,11 +41,16 @@
             setStatusDialog: 'dialog/setStatus',
             setComponent : 'dialog/setComponent',
         }),
-          search(){
+        search(){
             this.setStatusDialog(true)
-             this.setComponent('search')
+            this.setComponent('search')
             this.setSideBar(false)
-      }
+        },
+        cart() {
+            this.setStatusDialog(true)
+            this.setComponent('cart')
+            this.setSideBar(false)
+        }
     },
         computed: {
             ...mapGetters({

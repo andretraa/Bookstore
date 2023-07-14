@@ -22,8 +22,14 @@ export default {
         cover: payload.cover,
         price: payload.price,
         weight: payload.weight,
-        quantity: ++payload.quantity,
+        quantity: payload.quantity++,
       });
+      if (payload.quantity<=0){
+        state.carts.splice(idx,1)
+      }
+    },
+    Set: (state,payload) =>{
+      state.carts = payload
     },
   },
   actions: {
@@ -32,14 +38,26 @@ export default {
       if (!cartItem) {
         commit("insert", payload);
       } else {
+        cartItem.quantity++
         commit("update", cartItem);
       }
     },
+    remove: ({ state, commit }, payload) => {
+      const cartItem = state.carts.find((item) => item.id === payload.id);
+      if (cartItem) {
+        commit('update', { ...cartItem, quantity: cartItem.quantity - 1 });
+      }
+    },
+    
   },
   getters: {
     carts: (state) => state.carts,
-    count: (state) => {
-      return state.carts.length;
-    },
+    count: (state) => state.carts.length,
+    totalQuantity: (state) =>
+      state.carts.reduce((total, item) => total + item.quantity, 0),
+    totalPrice: (state) =>
+      state.carts.reduce((total, item) => total + item.price * item.quantity, 0),
+    totalWeight: (state) =>
+      state.carts.reduce((total, item) => total + item.weight * item.quantity, 0),
   },
 };

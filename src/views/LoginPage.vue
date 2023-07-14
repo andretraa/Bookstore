@@ -32,7 +32,7 @@ export default {
     data() {
         return {
             valid: true,
-            email: 'rangga@example.org',
+            email: 'user3@gmail.com',
             emailRules: [
                 v => !!v || 'E-mail is required',
                 v => /([a-zA-Z0-9_]{1,})(@)([a-zA-Z0-9_]{2,}).([a-zA-Z0-9_]{2,})+/.test(v) || 'E-mail must be valid'
@@ -49,6 +49,7 @@ export default {
     computed: {
         ...mapGetters({
             user: 'auth/user',
+            prevUrl: 'prevUrl',
         }),
     },
     methods: {
@@ -77,7 +78,8 @@ export default {
                                 text: 'Login Success',
                                 type: 'success',
                             });
-                            this.setStatusDialog(false);
+                            if(this.prevUrl.length > 0) this.$router.push(this.prevUrl)
+                            this.close()
                         } else {
                             this.setAlert({
                                 status: true,
