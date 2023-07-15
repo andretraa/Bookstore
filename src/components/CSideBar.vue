@@ -45,14 +45,16 @@
     <v-list class="pt-0" dense>
       <v-divider></v-divider>
 
-      <v-list-item v-for="(item, index) in items" :key="index" :href="item.route" :to="{ name: item.route }">
-        <v-list-item-action>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+      <template v-for="(item, index) in items" >
+        <v-list-item :key="index" :href="item.route" :to="{ name: item.route }" v-if="!item.auth || (item.auth && !guest)">
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -66,6 +68,8 @@ export default {
   data: () => ({
     items: [
       { title: 'Home', icon: 'mdi-view-dashboard', route: 'home' },
+      { title: 'Profile', icon: 'person', route: 'profile', auth:true },
+      { title: 'My Order', icon: 'shop_two', route: 'my-order', auth:true },
       { title: 'About', icon: 'mdi-alert-circle', route: 'about' },
     ]
   }),
@@ -93,6 +97,13 @@ export default {
       setAuth: 'auth/set',
       setAlert: 'alert/set',
     }),
+    getImage (image) {
+        if (image != null && image.length>0) {
+          const prefix = process.env.VUE_APP_BACKEND_URL.replace('/api/v1', '')
+          return `${prefix}/storage/images/${image}`
+        }
+        return "/img/unvaliable.jpg"
+      },
     login() {
       this.setStatusDialog(true)
       this.setComponent('login')

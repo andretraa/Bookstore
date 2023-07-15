@@ -15,7 +15,7 @@ const router = new VueRouter({
   routes: [
     {
           path: '/',
-          name: 'HomePage',
+          name: 'home',
           component: HomeView
         },
         {
@@ -47,6 +47,24 @@ const router = new VueRouter({
           path: '/checkout',
           name: 'checkoutPage',
           component: () => import('../views/CheckoutPage.vue'),
+          meta: { auth: true }
+        },
+        {
+          path: '/payment',
+          name: 'PaymentPage',
+          component: () => import('../views/PaymentPage.vue'),
+          meta: { auth: true }
+        },
+        {
+          path: '/profile',
+          name: 'profile',
+          component: () => import('../views/ProfilePage.vue'),
+          meta: { auth: true }
+        },
+        {
+          path: '/my-order',
+          name: 'my-order',
+          component: () => import('../components/MyOrder.vue'),
           meta: { auth: true }
         },
   ],
