@@ -5,6 +5,7 @@ export default {
   },
   mutations: {
     insert: (state, payload) => {
+      console.log('Weight:', payload.weight, 'insert');
       state.carts.push({
         id: payload.id,
         title: payload.title,
@@ -15,6 +16,7 @@ export default {
       });
     },
     update: (state, payload) => {
+      console.log('Weight:', payload.weight, 'update');
       let idx = state.carts.indexOf(payload);
       state.carts.splice(idx, 1, {
         id: payload.id,
@@ -22,7 +24,7 @@ export default {
         cover: payload.cover,
         price: payload.price,
         weight: payload.weight,
-        quantity: payload.quantity++,
+        quantity: payload.quantity ++,
       });
       if (payload.quantity<=0){
         state.carts.splice(idx,1)

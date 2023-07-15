@@ -138,6 +138,7 @@
         totalPrice: 'cart/totalPrice',
         totalQuantity: 'cart/totalQuantity',
         totalWeight: 'cart/totalWeight',
+        carts: 'cart/carts',
       }),
       citiesByProvince() {
         let province_id = this.province_id
@@ -200,7 +201,7 @@
       getServices(){
         let courier = this.courier
         let encodeCart = JSON.stringify(this.carts)
-        console.log(encodeCart, 'encode')
+        console.log(this.carts, 'encode')
         let formData = new FormData()
         formData.set('courier', courier)
         formData.set('carts', encodeCart);
@@ -244,6 +245,8 @@
       },
     },
     created() {
+      console.log(this.carts)
+      console.log(this.carts.length)
       this.name = this.user.name
       this.address = this.user.address
       this.phone = this.user.phone
@@ -254,7 +257,6 @@
           .get(`${process.env.VUE_APP_BACKEND_URL}/provinces`)
           .then((response) => {
             this.updateProvinces(response.data.data)
-            console.log(response.data.data)
           })
         axios
           .get(`${process.env.VUE_APP_BACKEND_URL}/cities`)
