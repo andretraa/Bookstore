@@ -243,6 +243,13 @@
         this.shippingCost = selectedService.cost;
         this.totalBill = parseInt(this.totalPrice) + parseInt(this.shippingCost);
       },
+      getImage (image) {
+          if (image != null && image.length>0) {
+            const prefix = process.env.VUE_APP_BACKEND_URL.replace('/api/v1', '')
+            return `${prefix}/storage/images/${image}`
+          }
+          return "/img/unvaliable.jpg"
+        },
     },
     created() {
       console.log(this.carts)
