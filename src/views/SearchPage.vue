@@ -48,7 +48,7 @@
                 let keyword = this.keyword;
                 if(keyword.length > 0){
                   axios
-                  .get(`${process.env.VUE_APP_BACKEND_URL}/books/search/` + keyword)
+                  .get(`${process.env.VUE_APP_BACKEND_URL}/api/v/books/search/` + keyword)
                   .then ((response) =>{
                       let books = response.data.data;
                       this.items= books;

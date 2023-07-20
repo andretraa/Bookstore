@@ -79,7 +79,7 @@
             let slug = this.$route.params.slug
             let url = '/books/slug/' + slug;
             axios
-            .get(`${process.env.VUE_APP_BACKEND_URL}` + url)
+            .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1` + url)
             .then((response)=>{
                 let book = response.data.data
                 this.book = book

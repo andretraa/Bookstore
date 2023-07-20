@@ -48,7 +48,7 @@ export default{
             },
         }
         axios
-        .get(`${process.env.VUE_APP_BACKEND_URL}/my-order`,config)
+        .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/my-order`,config)
         .then((response)=>{
             let{data}=response.data
             this.items = data

@@ -79,7 +79,7 @@
             <div class="title">{{ totalBill.toLocaleString('id-ID') }}</div>
           </v-flex>
           <v-flex xs6 text-center>
-            <v-btn color="orange" @click="openConfirmationDialog">
+            <v-btn color="orange" @click="dialogConfirm=true">
               <v-icon light>attach_money</v-icon> &nbsp;
               Pay
             </v-btn>
@@ -179,7 +179,7 @@ export default {
         },
       }
 
-      axios.post(`${process.env.VUE_APP_BACKEND_URL}/shipping`, formData, config)
+      axios.post(`${process.env.VUE_APP_BACKEND_URL}/api/v1/shipping`, formData, config)
         .then((response) => {
           this.setAuth(response.data.data);
           this.setAlert({
@@ -211,7 +211,7 @@ export default {
         },
       }
       axios
-        .post(`${process.env.VUE_APP_BACKEND_URL}/services`, formData, config)
+        .post(`${process.env.VUE_APP_BACKEND_URL}/api/v1/services`, formData, config)
         .then((response) => {
           let response_data = response.data
 
@@ -257,13 +257,12 @@ export default {
         },
       }
       axios
-        .post(`${process.env.VUE_APP_BACKEND_URL}/payment`, formData, config)
+        .post(`${process.env.VUE_APP_BACKEND_URL}/api/v1/payment`, formData, config)
         .then((response) => {
-          console.log(response.data);
           let { data } = response
           if (data && data.status == 'success') {
-            this.$router.push({ path: "/payment" })
             this.setPayment(data.data)
+            this.$router.push({ path: "/payment" })
             this.setCart([])
           }
           this.setAlert({
@@ -283,10 +282,7 @@ export default {
     },
     cancel() {
       this.dialogConfirm = false
-    },
-    openConfirmationDialog() {
-      this.dialogConfirm = true;
-    },
+    }
   },
   created() {
     this.name = this.user.name
@@ -296,20 +292,20 @@ export default {
     this.province_id = this.user.province_id
     if (this.provinces && this.provinces.length == 0) {
       axios
-        .get(`${process.env.VUE_APP_BACKEND_URL}/provinces`)
+        .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/provinces`)
         .then((response) => {
           this.updateProvinces(response.data.data)
           console.log(response.data.data)
         })
       axios
-        .get(`${process.env.VUE_APP_BACKEND_URL}/cities`)
+        .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/cities`)
         .then((response) => {
           this.updateCities(response.data.data)
         })
     }
     if (this.couriers.length == 0) {
       axios
-        .get(`${process.env.VUE_APP_BACKEND_URL}/couriers`)
+        .get(`${process.env.VUE_APP_BACKEND_URL}/api/v1/couriers`)
         .then((response) => {
           this.couriers = response.data.data
         })
@@ -317,4 +313,3 @@ export default {
   }
 }
 </script>
-  

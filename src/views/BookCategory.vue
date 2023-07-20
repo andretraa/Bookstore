@@ -60,7 +60,7 @@ export default {
             if (this.page > 0) url = url + '?page=' + this.page;
             url = encodeURI(url);
             axios
-                .get(`${process.env.VUE_APP_BACKEND_URL}` + url)
+                .get(`${process.env.VUE_APP_BACKEND_URL}/api/v` + url)
                 .then((response) => {
                     let response_data = response.data;
                     let category = response_data.data; // Corrected: Access the data property

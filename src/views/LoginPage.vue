@@ -68,7 +68,7 @@ export default {
                     password: this.password,
                 };
                 axios
-                    .post(`${process.env.VUE_APP_BACKEND_URL}/login`, formData)
+                    .post(`${process.env.VUE_APP_BACKEND_URL}/api/v1/login`, formData)
                     .then((response) => {
                         let data_user = response.data.data;
                         this.setAuth(data_user);

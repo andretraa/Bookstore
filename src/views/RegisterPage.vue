@@ -74,7 +74,7 @@
           formData.set('email', this.email);
           formData.set('password', this.password);
           axios
-            .post(`${process.env.VUE_APP_BACKEND_URL}/register`, formData)
+            .post(`${process.env.VUE_APP_BACKEND_URL}/api/v1/register`, formData)
             .then((response) => {
               let data_user = response.data.data;
               this.setAuth(data_user);
